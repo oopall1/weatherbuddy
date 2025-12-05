@@ -23,13 +23,15 @@ function App() {
     <div
       className={`bg-[url('/images/background.jpg')] bg-cover bg-center h-screen w-full`}
     >
-      <h1>Weather</h1>
-      <SearchBar
-        handleFetchWeather={setCity}
-        cityInput={cityInput}
-        setCityInput={setCityInput}
-        onGeolocationRequest={() => setCity(null)}
-      />
+      <div className="flex flex-row justify-between p-6 items-center">
+        <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
+        <SearchBar
+          handleFetchWeather={setCity}
+          cityInput={cityInput}
+          setCityInput={setCityInput}
+          onGeolocationRequest={() => setCity(null)}
+        />
+      </div>
       <div className="flex flex-row">
         <MainWeather data={weatherData} />
         <NextDays data={forecastData} />

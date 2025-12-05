@@ -60,7 +60,7 @@ const SearchBar: FC<SearchBarProps> = ({
   return (
     <form
       onSubmit={handleManualSearch}
-      className="w-full max-w-lg mb-8 relative"
+      className="w-full max-w-lg relative"
       ref={wrapperRef}
     >
       <div className="flex rounded-full shadow-xl overflow-hidden bg-white/95 relative z-10">
