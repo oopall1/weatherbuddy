@@ -8,7 +8,7 @@ interface NextDaysProps {
 
 const NextDays: FC<NextDaysProps> = ({ data }) => {
   return (
-    <div>
+    <div className="w-[25%] backdrop-filter backdrop-blur-md">
       <h2>Next Days Forecast</h2>
       {data.map((dayData) => (
         <WeatherCard key={dayData.dt} data={dayData} />

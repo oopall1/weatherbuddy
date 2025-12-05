@@ -56,9 +56,9 @@ function App() {
 
   return (
     <div
-      className={`bg-[url('/images/background.jpg')] bg-cover bg-center h-screen w-full`}
+      className={`bg-[url('/images/background.jpg')] bg-cover bg-center h-screen w-full px-8 py-0`}
     >
-      <div className="flex flex-row justify-between p-6 items-center">
+      <div className="flex flex-row justify-between p-6 items-center mb-10">
         <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
           handleFetchWeather={handleWeatherQuery}
@@ -70,7 +70,7 @@ function App() {
           }}
         />
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-[10%]">
         <MainWeather data={mainWeatherData} />
         <NextDays data={forecastData} />
       </div>

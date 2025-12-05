@@ -97,7 +97,6 @@ const SearchBar: FC<SearchBarProps> = ({
           disabled={!cityInput.trim()}
         >
           <Search size={20} />
-          <span>Search</span>
         </button>
 
         {/* Geolocation Button */}

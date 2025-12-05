@@ -17,7 +17,7 @@ const MainWeather: FC<MainWeatherProps> = ({ data }) => {
   if (!parsedData) return <div>No data to show</div>; // TODO: improve loading and no data states
 
   return (
-    <div>
+    <div className="w-[65%] backdrop-filter backdrop-blur-md">
       <h1>{parsedData.date.toDateString()}</h1>
       <header>
         <h1>
