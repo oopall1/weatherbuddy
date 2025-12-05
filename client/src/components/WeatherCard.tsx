@@ -1,7 +1,6 @@
 import { type FC, useState } from "react";
 import type { DisplayWeather, WeatherData } from "../common/interfaces";
-import { parseWeatherData } from "../utiles/weather-data-parser.functions";
-import { getWeatherIconUrl } from "../utiles/weather-icons.fucntion";
+import { parseWeatherData, getWeatherIconUrl } from "../utiles";
 
 interface WeatherCardProps {
   data: WeatherData;

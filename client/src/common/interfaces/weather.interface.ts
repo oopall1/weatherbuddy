@@ -13,6 +13,7 @@ export interface WeatherData {
     main: string;
   }>;
   dt: number;
+  dt_txt?: string;
   sys: {
     country: string;
     sunrise: number;
