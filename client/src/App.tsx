@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-import { useWeather } from "./common/hooks/queries/useWeather.query";
+import { useWeather, useForecastWeather } from "./common/hooks/queries";
 
 import WeatherCard from "./components/WeatherCard";
 
 import "./App.css";
-import { useForecastWeather } from "./common/hooks/queries/useForecastWeather.query";
 
 function App() {
   const [city, setCity] = useState<string | null>(null);
@@ -16,12 +15,14 @@ function App() {
   console.log("Forecast Data:", forecastData);
 
   return (
-    <>
+    <div
+      className={`bg-[url('/images/background.jpg')] bg-cover bg-center h-screen w-full`}
+    >
       <h1>Weather</h1>
       <div>
         <WeatherCard data={weatherData!} />
       </div>
-    </>
+    </div>
   );
 }
 
