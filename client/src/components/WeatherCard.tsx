@@ -1,27 +1,44 @@
 // src/components/WeatherCard.tsx
 import React from "react";
-import type { DisplayWeather } from "../common/interfaces";
+import type { DisplayWeather, WeatherData } from "../common/interfaces";
+import { parseWeatherData } from "../utiles/weather-data-parser.functions";
+import { getWeatherIconUrl } from "../utiles/weather-icons.fucntion";
 
 interface WeatherCardProps {
-  data: DisplayWeather;
+  data: WeatherData;
 }
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
-  const iconUrl = `https://openweathermap.org/img/wn/${data.iconCode}@2x.png`;
+  const isDayTime =
+    data?.dt >= data?.sys.sunrise && data?.dt < data?.sys.sunset;
+
+  const parsedData: DisplayWeather | null = parseWeatherData(data);
+
+  if (!parsedData) return <div>No data to show</div>; // TODO: improve loading and no data states
 
   return (
     <div className="weather-card">
       <header>
         <h1>
-          {data.city}, {data.country}
+          {parsedData.city}, {parsedData.country}
         </h1>
-        <p className="description">{data.description.toUpperCase()}</p>
+        <p className="description">{parsedData.description.toUpperCase()}</p>
       </header>
 
       <div className="main-info">
-        <img src={iconUrl} alt={data.description} className="weather-icon" />
-        <span className="temperature">{Math.round(data.temperature)}°C</span>
-        <p>Feels like: {Math.round(data.feelsLike)}°C</p>
+        <img
+          src={getWeatherIconUrl(
+            parsedData.description.toLowerCase(),
+            true,
+            isDayTime
+          )}
+          alt={parsedData.description}
+          className="weather-icon"
+        />
+        <span className="temperature">
+          {Math.round(parsedData.temperature)}°C
+        </span>
+        <p>Feels like: {Math.round(parsedData.feelsLike)}°C</p>
       </div>
 
       <hr />
@@ -29,18 +46,18 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
       <h2>🌤️ Details & Atmosphere</h2>
       <div className="details-grid">
         <div className="detail-item">
-          <span className="label">Humidity:</span> {data.humidity}%
+          <span className="label">Humidity:</span> {parsedData.humidity}%
         </div>
         <div className="detail-item">
-          <span className="label">Pressure:</span> {data.pressure} hPa
+          <span className="label">Pressure:</span> {parsedData.pressure} hPa
         </div>
         <div className="detail-item">
-          <span className="label">Wind:</span> {data.windSpeed} m/s (
-          {data.windDirection})
+          <span className="label">Wind:</span> {parsedData.windSpeed} m/s (
+          {parsedData.windDirection})
         </div>
         <div className="detail-item">
           <span className="label">Clouds:</span> 26%{" "}
-          {/* Note: 'clouds.all' is 26 in your data; it's a separate field */}
+          {/* Note: 'clouds.all' is 26 in your parsedData; it's a separate field */}
         </div>
       </div>
 
@@ -49,10 +66,10 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
       <h2>🌅 Day Cycle</h2>
       <div className="details-grid">
         <div className="detail-item">
-          <span className="label">Sunrise:</span> {data.sunriseTime}
+          <span className="label">Sunrise:</span> {parsedData.sunriseTime}
         </div>
         <div className="detail-item">
-          <span className="label">Sunset:</span> {data.sunsetTime}
+          <span className="label">Sunset:</span> {parsedData.sunsetTime}
         </div>
       </div>
     </div>

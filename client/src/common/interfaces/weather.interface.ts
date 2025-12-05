@@ -12,6 +12,7 @@ export interface WeatherData {
     icon: string;
     main: string;
   }>;
+  dt: number;
   sys: {
     country: string;
     sunrise: number;
