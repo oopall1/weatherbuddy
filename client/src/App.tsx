@@ -1,23 +1,25 @@
 import { useState } from "react";
+
+import { useWeather } from "./common/hooks/queries/useWeather.query";
+
+import WeatherCard from "./components/WeatherCard";
+import { parseWeatherData } from "./utiles/weather-data-parser";
+
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [city, setCity] = useState<string | null>(null);
+
+  const { data: weatherData } = useWeather(city);
+
+  const parsedData = parseWeatherData(weatherData ?? null);
 
   return (
     <>
-      <h1 className="text-red-500">Vite + React</h1>
+      <h1 className="text-red-500">Weather</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {parsedData && <WeatherCard data={parsedData} />}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
