@@ -1,5 +1,4 @@
-// src/components/WeatherCard.tsx
-import React from "react";
+import { type FC, useState } from "react";
 import type { DisplayWeather, WeatherData } from "../common/interfaces";
 import { parseWeatherData } from "../utiles/weather-data-parser.functions";
 import { getWeatherIconUrl } from "../utiles/weather-icons.fucntion";
@@ -8,7 +7,9 @@ interface WeatherCardProps {
   data: WeatherData;
 }
 
-const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
+const WeatherCard: FC<WeatherCardProps> = ({ data }) => {
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+
   const isDayTime =
     data?.dt >= data?.sys.sunrise && data?.dt < data?.sys.sunset;
 
@@ -29,11 +30,13 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
         <img
           src={getWeatherIconUrl(
             parsedData.description.toLowerCase(),
-            true,
+            !isHovering,
             isDayTime
           )}
           alt={parsedData.description}
-          className="weather-icon"
+          className="text-9xl"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
         />
         <span className="temperature">
           {Math.round(parsedData.temperature)}°C
@@ -43,7 +46,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
 
       <hr />
 
-      <h2>🌤️ Details & Atmosphere</h2>
+      <h2>Details & Atmosphere</h2>
       <div className="details-grid">
         <div className="detail-item">
           <span className="label">Humidity:</span> {parsedData.humidity}%
@@ -63,7 +66,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
 
       <hr />
 
-      <h2>🌅 Day Cycle</h2>
+      <h2>Day Cycle</h2>
       <div className="details-grid">
         <div className="detail-item">
           <span className="label">Sunrise:</span> {parsedData.sunriseTime}
