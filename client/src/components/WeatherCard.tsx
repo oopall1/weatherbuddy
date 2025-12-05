@@ -9,6 +9,8 @@ interface WeatherCardProps {
 const WeatherCard: FC<WeatherCardProps> = ({ data }) => {
   const parsedData: DisplayWeather | null = parseWeatherData(data);
 
+  console.log(data);
+
   if (!parsedData) return <div>No data to show</div>; // TODO: improve loading and no data states
 
   return (
@@ -19,6 +21,7 @@ const WeatherCard: FC<WeatherCardProps> = ({ data }) => {
           alt={parsedData.description}
         />
         <span>{Math.round(parsedData.temperature)}°C</span>
+        <p>{parsedData.date.toDateString()}</p>
       </div>
     </div>
   );

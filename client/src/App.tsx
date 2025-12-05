@@ -15,14 +15,18 @@ function App() {
 
   console.log(forecastData);
 
+  if (!weatherData || !forecastData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div
       className={`bg-[url('/images/background.jpg')] bg-cover bg-center h-screen w-full`}
     >
       <h1>Weather</h1>
       <div className="flex flex-row">
-        <MainWeather data={weatherData!} />
-        <NextDays data={forecastData!} />
+        <MainWeather data={weatherData} />
+        <NextDays data={forecastData} />
       </div>
     </div>
   );

@@ -37,6 +37,9 @@ export const parseWeatherData = (
   }
 
   return {
+    date: rawData.dt_txt
+      ? new Date(rawData.dt_txt.split(" ")[0])
+      : new Date(rawData.dt * 1000),
     city: rawData.name,
     country: rawData.sys.country,
     temperature: rawData.main.temp,

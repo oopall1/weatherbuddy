@@ -18,6 +18,7 @@ const MainWeather: FC<MainWeatherProps> = ({ data }) => {
 
   return (
     <div>
+      <h1>{parsedData.date.toDateString()}</h1>
       <header>
         <h1>
           {parsedData.city}, {parsedData.country}

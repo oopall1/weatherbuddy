@@ -26,6 +26,7 @@ export interface WeatherData {
 }
 
 export interface DisplayWeather {
+  date: Date;
   city: string;
   country: string;
   temperature: number;
