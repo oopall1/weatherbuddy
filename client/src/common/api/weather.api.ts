@@ -72,8 +72,8 @@ export const getForecastWeather = async (cityName: string | null) => {
           : "An error occurred while fetching weather data"
       );
     }
-    return data.list.filter(
-      (dayData: WeatherData) => dayData.dt_txt === "12:00:00"
+    return data.list.filter((dayData: WeatherData) =>
+      dayData["dt_txt"]?.includes("12:00:00")
     );
   } catch (error) {
     console.error("Error fetching data:", error);
