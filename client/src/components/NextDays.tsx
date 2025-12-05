@@ -7,7 +7,6 @@ interface NextDaysProps {
 }
 
 const NextDays: FC<NextDaysProps> = ({ data }) => {
-  console.log(data);
   return (
     <div>
       <h2>Next Days Forecast</h2>
