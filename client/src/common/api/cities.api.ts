@@ -1,6 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+import type { RawCity } from "../interfaces";
+
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const GEO_URL = "https://api.openweathermap.org/geo/1.0/direct";
 
@@ -15,7 +17,8 @@ export const getCities = async (query: string) => {
           : "An error occurred while fetching weather data"
       );
     }
-    return data.map((city: any) => {
+
+    return data.map((city: RawCity) => {
       console.log(city);
       return {
         city: city.name,

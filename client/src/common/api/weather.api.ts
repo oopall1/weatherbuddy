@@ -73,7 +73,6 @@ export const getForecastWeather = async (cityName: string | null) => {
       );
     }
 
-    console.log(new Date(data.list[0].dt).toISOString().split("T")[0]);
     return data.list
       .filter((dayData: WeatherData) => dayData["dt_txt"]?.includes("12:00:00"))
       .slice(1);
