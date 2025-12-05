@@ -10,10 +10,9 @@ import MainWeather from "./components/MainWeather";
 import NextDays from "./components/NextDays";
 import SearchBar from "./components/SearchBar";
 
-import "./App.css";
+import type { WeatherQuery } from "./common/types";
 
-// Define a union type for the coordinate object or the city name string
-type WeatherQuery = { lat: number; lon: number } | string;
+import "./App.css";
 
 function App() {
   const [city, setCity] = useState<string | null>(null);
@@ -22,28 +21,20 @@ function App() {
   );
   const [cityInput, setCityInput] = useState<string>("");
 
-  // Create the unified handler function
   const handleWeatherQuery = (query: WeatherQuery) => {
     // If the query is an object (coordinates from suggestion)
     if (typeof query !== "string") {
-      setCoords(query); // Set coordinates
-      setCity(null); // Clear city name
+      setCoords(query);
+      setCity(null);
     } else {
       // If the query is a string (city name from manual search)
-      setCity(query); // Set city name
-      setCoords(null); // Clear coordinates
+      setCity(query);
+      setCoords(null);
     }
   };
 
-  // The existing hooks are queried in parallel.
-  // NOTE: You must update useWeather and useForecastWeather to be disabled
-  // when `coords` is not null, and vice-versa for useWeatherByCoords.
+  const { data: weatherData } = useWeather(city, { enabled: city !== null });
 
-  // Conditionally disable hooks to prevent unnecessary fetches
-  const { data: weatherData } = useWeather(
-    city,
-    { enabled: city !== null } // Enable only if city is set
-  );
   const { data: forecastData } = useForecastWeather(
     city,
     coords?.lat,
@@ -53,15 +44,11 @@ function App() {
   const { data: weatherDataByCoords } = useWeatherByCoords(
     coords ? coords.lat : 0,
     coords ? coords.lon : 0,
-    { enabled: coords !== null } // Enable only if coords are set
+    { enabled: coords !== null }
   );
 
   // Determine which data source to use
   const mainWeatherData = coords ? weatherDataByCoords : weatherData;
-
-  // It's also important to update the forecast hook to use coords for consistency
-  // If you haven't, forecastData will only load when searching by city name.
-  // For this fix, we assume you'll update the useForecastWeather hook later.
 
   if (!mainWeatherData || !forecastData) {
     return <div>Loading...</div>;
@@ -74,7 +61,6 @@ function App() {
       <div className="flex flex-row justify-between p-6 items-center">
         <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
-          // Pass the unified handler function
           handleFetchWeather={handleWeatherQuery}
           cityInput={cityInput}
           setCityInput={setCityInput}

@@ -9,9 +9,9 @@ import {
 import { Search, LocateFixed, X } from "lucide-react";
 
 import { useCities } from "../common/hooks/queries";
-import type { City } from "../common/interfaces";
 
-type WeatherQuery = { lat: number; lon: number } | string;
+import type { City } from "../common/interfaces";
+import type { WeatherQuery } from "../common/types";
 
 interface SearchBarProps {
   cityInput: string;

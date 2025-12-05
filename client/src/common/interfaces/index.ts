@@ -1,2 +1,2 @@
-export * from "./weather.interface";
-export * from "./city.interface";
+export type * from "./weather.interface";
+export type * from "./city.interface";
