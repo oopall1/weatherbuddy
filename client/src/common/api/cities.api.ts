@@ -18,15 +18,12 @@ export const getCities = async (query: string) => {
       );
     }
 
-    return data.map((city: RawCity) => {
-      console.log(city);
-      return {
-        city: city.name,
-        country: city.country,
-        lat: city.lat,
-        lon: city.lon,
-      };
-    });
+    return data.map((city: RawCity) => ({
+      city: city.name,
+      country: city.country,
+      lat: city.lat,
+      lon: city.lon,
+    }));
   } catch (error) {
     console.error("Error fetching data:", error);
     return [];

@@ -1,15 +1,16 @@
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
-import { getWeather } from "../../api/weather.api";
+import { getWeatherByCoords } from "../../api/weather.api";
 import type { WeatherData } from "../../interfaces";
 
-export const useWeather = (
-  cityName: string | null,
+export const useWeatherByCoords = (
+  lat: number,
+  lon: number,
   options?: Partial<
     UseQueryOptions<
       WeatherData | null,
       Error,
       WeatherData | null,
-      [string, string | null]
+      [string, number, number]
     >
   >
 ) => {
@@ -17,10 +18,10 @@ export const useWeather = (
     WeatherData | null,
     Error,
     WeatherData | null,
-    [string, string | null]
+    [string, number, number]
   >({
-    queryKey: ["weather", cityName],
-    queryFn: async () => getWeather(cityName),
+    queryKey: ["weather", lat, lon],
+    queryFn: () => getWeatherByCoords(lat, lon),
     ...options,
   });
 };

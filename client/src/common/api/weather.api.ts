@@ -42,11 +42,42 @@ export const getWeather = async (cityName: string | null) => {
   }
 };
 
-export const getForecastWeather = async (cityName: string | null) => {
+export const getWeatherByCoords = async (
+  latitude: number,
+  longitude: number
+) => {
+  try {
+    const url = `${API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
+
+    if (!url) throw new Error("Unable to determine location for weather data.");
+
+    const { data, status } = await axios.get(url);
+
+    if (status !== 200) {
+      toast.error(
+        status === 404
+          ? "City not found"
+          : status === 401
+          ? "API KEY error"
+          : "An error occurred while fetching weather data"
+      );
+    }
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+};
+
+export const getForecastWeather = async (
+  cityName: string | null,
+  lat?: number,
+  lon?: number
+) => {
   try {
     let url: string;
 
-    if (!cityName) {
+    if (!cityName && !lat && !lon) {
       url = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords;
@@ -55,6 +86,8 @@ export const getForecastWeather = async (cityName: string | null) => {
           );
         }, reject);
       });
+    } else if (lat !== undefined && lon !== undefined) {
+      url = `${API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
     } else {
       url = `${API_URL}/forecast?q=${cityName}&appid=${API_KEY}&units=metric`;
     }

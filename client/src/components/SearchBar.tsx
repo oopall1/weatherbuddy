@@ -9,11 +9,14 @@ import {
 import { Search, LocateFixed, X } from "lucide-react";
 
 import { useCities } from "../common/hooks/queries";
+import type { City } from "../common/interfaces";
+
+type WeatherQuery = { lat: number; lon: number } | string;
 
 interface SearchBarProps {
   cityInput: string;
   setCityInput: Dispatch<SetStateAction<string>>;
-  handleFetchWeather: (cityName: string) => void;
+  handleFetchWeather: (query: WeatherQuery) => void;
   onGeolocationRequest: () => void;
 }
 
@@ -48,8 +51,11 @@ const SearchBar: FC<SearchBarProps> = ({
     }
   };
 
-  const selectSuggestion = (query: string) => {
-    handleFetchWeather(query);
+  const selectSuggestion = (suggestion: City) => {
+    handleFetchWeather({
+      lat: Number(suggestion.lat),
+      lon: Number(suggestion.lon),
+    });
     clearInput();
   };
 
@@ -114,7 +120,7 @@ const SearchBar: FC<SearchBarProps> = ({
               <li
                 key={index}
                 className="p-3 text-gray-800 cursor-pointer hover:bg-indigo-100 transition duration-150 border-b border-gray-100 last:border-b-0"
-                onClick={() => selectSuggestion(suggestion.city)}
+                onClick={() => selectSuggestion(suggestion)}
               >
                 {suggestion.city}, {suggestion.country}
               </li>
