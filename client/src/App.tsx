@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="h-screen w-full **flex flex-col**">
-      <div className="flex flex-row justify-between p-6 items-center bg-[#a2e4fe]">
+      <div className="flex flex-row justify-between p-4 items-center bg-[#a2e4fe]">
         <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
           handleFetchWeather={handleWeatherQuery}
