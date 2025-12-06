@@ -49,9 +49,8 @@ function App() {
     });
 
   const isLoading =
-    (coords !== null ? isCoordsLoading : isWeatherLoading) || isForecastLoading;
+    (coords !== null ? isCoordsLoading : isWeatherLoading) || isForecastLoading; // Determine which data source to use
 
-  // Determine which data source to use
   const mainWeatherData = coords ? weatherDataByCoords : weatherData;
 
   if (isLoading || !mainWeatherData || !forecastData) {
@@ -59,7 +58,7 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full **flex flex-col**">
       <div className="flex flex-row justify-between p-6 items-center bg-[#a2e4fe]">
         <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
@@ -72,7 +71,7 @@ function App() {
           }}
         />
       </div>
-      <div className="p-6 flex flex-row gap-[10%] bg-[url('/images/background.jpg')] bg-cover bg-center h-full">
+      <div className="p-6 flex flex-row gap-[10%] bg-[url('/images/background.jpg')] bg-cover bg-center **flex-grow**">
         <MainWeather data={mainWeatherData} />
         <NextDays data={forecastData} />
       </div>
