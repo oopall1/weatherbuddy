@@ -71,7 +71,7 @@ function App() {
           }}
         />
       </div>
-      <div className="p-6 flex flex-row gap-[10%] bg-[url('/images/background.jpg')] bg-cover bg-center **flex-grow**">
+      <div className="p-6 flex flex-row items-center gap-[10%] bg-[url('/images/background.jpg')] bg-cover bg-center **flex-grow**">
         <MainWeather data={mainWeatherData} />
         <NextDays data={forecastData} />
       </div>

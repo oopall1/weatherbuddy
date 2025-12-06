@@ -28,7 +28,7 @@ const WeatherCard: FC<WeatherCardProps> = ({ data }) => {
             className="h-15 object-contain mx-auto"
           />
 
-          <span className="text-3xl font-bold text-[#fec46e] ml-4">
+          <span className="text-3xl font-bold text-black ml-4">
             {Math.round(parsedData.temperature)}°C
           </span>
         </div>
