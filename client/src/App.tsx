@@ -33,32 +33,34 @@ function App() {
     }
   };
 
-  const { data: weatherData } = useWeather(city, { enabled: city !== null });
+  const isCitySearchEnabled =
+    city !== null || (city === null && coords === null);
 
-  const { data: forecastData } = useForecastWeather(
-    city,
-    coords?.lat,
-    coords?.lon
-  );
+  const { data: weatherData, isLoading: isWeatherLoading } = useWeather(city, {
+    enabled: isCitySearchEnabled,
+  });
 
-  const { data: weatherDataByCoords } = useWeatherByCoords(
-    coords ? coords.lat : 0,
-    coords ? coords.lon : 0,
-    { enabled: coords !== null }
-  );
+  const { data: forecastData, isLoading: isForecastLoading } =
+    useForecastWeather(city, coords?.lat, coords?.lon);
+
+  const { data: weatherDataByCoords, isLoading: isCoordsLoading } =
+    useWeatherByCoords(coords ? coords.lat : 0, coords ? coords.lon : 0, {
+      enabled: coords !== null,
+    });
+
+  const isLoading =
+    (coords !== null ? isCoordsLoading : isWeatherLoading) || isForecastLoading;
 
   // Determine which data source to use
   const mainWeatherData = coords ? weatherDataByCoords : weatherData;
 
-  if (!mainWeatherData || !forecastData) {
+  if (isLoading || !mainWeatherData || !forecastData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div
-      className={`bg-[url('/images/background.jpg')] bg-cover bg-center h-screen w-full px-8 py-0`}
-    >
-      <div className="flex flex-row justify-between p-6 items-center mb-10">
+    <div className="h-screen w-full">
+      <div className="flex flex-row justify-between p-6 items-center bg-[#a2e4fe]">
         <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
           handleFetchWeather={handleWeatherQuery}
@@ -70,7 +72,7 @@ function App() {
           }}
         />
       </div>
-      <div className="flex flex-row gap-[10%]">
+      <div className="p-6 flex flex-row gap-[10%] bg-[url('/images/background.jpg')] bg-cover bg-center h-full">
         <MainWeather data={mainWeatherData} />
         <NextDays data={forecastData} />
       </div>
