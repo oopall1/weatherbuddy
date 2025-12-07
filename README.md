@@ -134,6 +134,7 @@ You also need an API key from **OpenWeatherMap**.
 
 The key files and directories are organized as follows:
 
+```
 weatherbuddy/
 ├──client/
 │ ├── src/
@@ -157,6 +158,7 @@ weatherbuddy/
 │ │ │ └── animated/ # Animated weather icons for the UI
 │ └── package.json
 ├──README.md
+```
 
 ---
 
