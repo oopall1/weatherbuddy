@@ -1,4 +1,6 @@
 import { useState } from "react";
+import clsx from "clsx";
+import { isMobile } from "react-device-detect";
 
 import {
   useWeather,
@@ -63,8 +65,13 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-full **flex flex-col**">
-      <div className="flex flex-row justify-between p-4 items-center bg-[#a2e4fe]">
+    <div className="h-screen w-full flex flex-col">
+      <div
+        className={clsx(
+          "flex p-4 items-center bg-[#a2e4fe]",
+          isMobile ? "flex-col gap-3" : " flex-row justify-between"
+        )}
+      >
         <h1 className="text-black text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
           handleFetchWeather={handleWeatherQuery}
@@ -76,7 +83,12 @@ function App() {
           }}
         />
       </div>
-      <div className="p-6 flex flex-row items-center gap-[10%] bg-[url('/images/background.jpg')] bg-cover bg-center **flex-grow**">
+      <div
+        className={clsx(
+          "p-6 flex items-center bg-[url('/images/background.jpg')] bg-cover bg-center grow",
+          isMobile ? "flex-col gap-4" : "flex-row  gap-[10%] "
+        )}
+      >
         <MainWeather data={mainWeatherData} />
         <NextDays data={forecastData} />
       </div>

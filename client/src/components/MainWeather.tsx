@@ -1,6 +1,10 @@
 import { type FC, useState } from "react";
-import type { DisplayWeather, WeatherData } from "../common/interfaces";
+import clsx from "clsx";
+import { isMobile } from "react-device-detect";
+
 import { parseWeatherData, getWeatherIconUrl } from "../utiles";
+
+import type { DisplayWeather, WeatherData } from "../common/interfaces";
 
 interface MainWeatherProps {
   data: WeatherData;
@@ -17,7 +21,12 @@ const MainWeather: FC<MainWeatherProps> = ({ data }) => {
   if (!parsedData) return <div>No data to show</div>; // TODO: improve loading and no data states
 
   return (
-    <div className="w-[65%] **bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl text-black flex flex-col justify-between**">
+    <div
+      className={clsx(
+        "bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl text-black flex flex-col justify-between",
+        isMobile ? "w-full" : "w-[65%]"
+      )}
+    >
       <header className="mb-8">
         <h1 className="text-4xl font-light tracking-wide">
           {parsedData.city}, {parsedData.country}

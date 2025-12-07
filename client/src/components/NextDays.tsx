@@ -1,6 +1,10 @@
 import { type FC } from "react";
-import type { WeatherData } from "../common/interfaces";
+import clsx from "clsx";
+import { isMobile } from "react-device-detect";
+
 import WeatherCard from "./WeatherCard";
+
+import type { WeatherData } from "../common/interfaces";
 
 interface NextDaysProps {
   data: WeatherData[];
@@ -8,7 +12,7 @@ interface NextDaysProps {
 
 const NextDays: FC<NextDaysProps> = ({ data }) => {
   return (
-    <div className="w-[25%]">
+    <div className={clsx(isMobile ? "w-full" : "w-[25%]")}>
       {data.map((dayData) => (
         <WeatherCard key={dayData.dt} data={dayData} />
       ))}
