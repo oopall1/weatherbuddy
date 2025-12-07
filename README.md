@@ -135,25 +135,28 @@ You also need an API key from **OpenWeatherMap**.
 The key files and directories are organized as follows:
 
 weatherbuddy/
-├── src/
-│ ├── common/
-│ │ ├── hooks/
-│ │ │ └── queries/ # React Query custom hooks (useWeather, useForecastWeather, etc.)
-│ │ ├── interfaces/ # TypeScript interfaces (WeatherData, City, etc.)
-│ │ ├── types/ # Custom types (WeatherQuery)
-│ │ └── api/ # Core functions for API calls (getCities, getWeather, etc.)
-│ ├── components/
-│ │ ├── MainWeather.tsx # Current Weather Card
-│ │ ├── NextDays.tsx # Forecast Cards Container
-│ │ └── SearchBar.tsx # Search input and suggestion handler
-│ └── App.tsx # Main application component and state management
-├── public/
-│ │── images/
-│ │ └── background.jpg # Background image for the UI
-│ │── icons/
-│ │ ├── static/ # Static weather icons for the UI
-│ │ └── animated/ # Animated weather icons for the UI
-└── package.json
+├──client/
+│ ├── src/
+│ │ ├── common/
+│ │ │ ├── hooks/
+│ │ │ │ └── queries/ # React Query custom hooks (useWeather, useForecastWeather, etc.)
+│ │ │ ├── interfaces/ # TypeScript interfaces (WeatherData, City, etc.)
+│ │ │ ├── types/ # Custom types (WeatherQuery)
+│ │ │ └── api/ # Core functions for API calls (getCities, getWeather, etc.)
+│ │ ├── components/
+│ │ │ ├── MainWeather.tsx # Current Weather Card
+│ │ │ ├── NextDays.tsx # Forecast Cards Container
+│ │ │ └── SearchBar.tsx # Search input and suggestion handler
+│ │ ├── utiles/ # Helper functions
+│ │ └── App.tsx # Main application component and state management
+│ ├── public/
+│ │ │── images/
+│ │ │ └── background.jpg # Background image for the UI
+│ │ │── icons/
+│ │ │ ├── static/ # Static weather icons for the UI
+│ │ │ └── animated/ # Animated weather icons for the UI
+│ └── package.json
+├──README.md
 
 ---
 
