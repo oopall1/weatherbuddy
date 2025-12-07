@@ -40,18 +40,23 @@ function App() {
     enabled: isCitySearchEnabled,
   });
 
-  const { data: forecastData, isLoading: isForecastLoading } =
-    useForecastWeather(city, coords?.lat, coords?.lon);
-
   const { data: weatherDataByCoords, isLoading: isCoordsLoading } =
     useWeatherByCoords(coords ? coords.lat : 0, coords ? coords.lon : 0, {
       enabled: coords !== null,
     });
 
+  const mainWeatherData = coords ? weatherDataByCoords : weatherData;
+
+  const { data: forecastData, isLoading: isForecastLoading } =
+    useForecastWeather(
+      mainWeatherData?.dt ? new Date(mainWeatherData?.dt) : new Date(),
+      city,
+      coords?.lat,
+      coords?.lon
+    );
+
   const isLoading =
     (coords !== null ? isCoordsLoading : isWeatherLoading) || isForecastLoading; // Determine which data source to use
-
-  const mainWeatherData = coords ? weatherDataByCoords : weatherData;
 
   if (isLoading || !mainWeatherData || !forecastData) {
     return <div>Loading...</div>;
@@ -60,7 +65,7 @@ function App() {
   return (
     <div className="h-screen w-full **flex flex-col**">
       <div className="flex flex-row justify-between p-4 items-center bg-[#a2e4fe]">
-        <h1 className="text-white text-2xl font-bold">WeatherBuddy</h1>
+        <h1 className="text-black text-2xl font-bold">WeatherBuddy</h1>
         <SearchBar
           handleFetchWeather={handleWeatherQuery}
           cityInput={cityInput}

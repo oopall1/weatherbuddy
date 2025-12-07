@@ -70,6 +70,7 @@ export const getWeatherByCoords = async (
 };
 
 export const getForecastWeather = async (
+  dateToExclude: Date,
   cityName: string | null,
   lat?: number,
   lon?: number
@@ -106,9 +107,12 @@ export const getForecastWeather = async (
       );
     }
 
-    return data.list
-      .filter((dayData: WeatherData) => dayData["dt_txt"]?.includes("12:00:00"))
-      .slice(1);
+    return data.list.filter(
+      (dayData: WeatherData) =>
+        dayData["dt_txt"]?.includes("12:00:00") &&
+        dayData["dt_txt"].split(" ")[0] !==
+          dateToExclude.toISOString().split("T")[0]
+    );
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;

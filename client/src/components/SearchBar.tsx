@@ -72,10 +72,10 @@ const SearchBar: FC<SearchBarProps> = ({
       <div className="flex rounded-full shadow-xl overflow-hidden bg-white/95 relative z-10">
         <input
           type="text"
-          placeholder="Enter City Name or use Geolocation"
+          placeholder="Enter City Name..."
           value={cityInput}
           onChange={(e) => setCityInput(e.target.value)}
-          className="grow p-4 text-gray-700 focus:outline-none placeholder-gray-400 pl-6"
+          className="grow p-4 text-gray-700 focus:outline-none placeholder-gray-600 pl-6"
         />
 
         {/* Clear Input Button */}
