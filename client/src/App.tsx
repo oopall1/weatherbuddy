@@ -11,6 +11,7 @@ import {
 import MainWeather from "./components/MainWeather";
 import NextDays from "./components/NextDays";
 import SearchBar from "./components/SearchBar";
+import Loading from "./components/Loading";
 
 import type { WeatherQuery } from "./common/types";
 
@@ -61,7 +62,7 @@ function App() {
     (coords !== null ? isCoordsLoading : isWeatherLoading) || isForecastLoading; // Determine which data source to use
 
   if (isLoading || !mainWeatherData || !forecastData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
