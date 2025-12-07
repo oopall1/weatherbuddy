@@ -50,7 +50,7 @@ const MainWeather: FC<MainWeatherProps> = ({ data }) => {
         <img
           src={getWeatherIconUrl(
             parsedData.description.toLowerCase(),
-            !isHovering,
+            isMobile ? false : !isHovering,
             isDayTime
           )}
           alt={parsedData.description}
